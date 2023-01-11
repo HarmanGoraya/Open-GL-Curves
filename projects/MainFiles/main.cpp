@@ -546,20 +546,8 @@ main(const int argc, const char** argv)
 
     static const GLfloat g_data_line_loop[] = { -1.0f, -1.0f, 0.0f, 1.0f, -1.0f, 0.0f, 0.0f, 1.0f, 0.0f };
 
-    //glBindBuffer(GL_ARRAY_BUFFER, vbo_triangles);
-   // glBufferData(GL_ARRAY_BUFFER, sizeof(g_data_triangles), g_data_triangles, GL_DYNAMIC_DRAW);
-
-    //glBindBuffer(GL_ARRAY_BUFFER, vbo_lines);
-    //glBufferData(GL_ARRAY_BUFFER, sizeof(g_data_lines), g_data_lines, GL_DYNAMIC_DRAW);
-
     glBindBuffer(GL_ARRAY_BUFFER, vbo_line_strip);
     glBufferData(GL_ARRAY_BUFFER,  curves[pid].ctrlpts.size() * 3 * sizeof(float) , &curves[pid].ctrlpts[0] , GL_DYNAMIC_DRAW);
-    //std::cout<<Points.size()<<std::endl;
-
-
-    //glBindBuffer(GL_ARRAY_BUFFER, vbo_line_loop);
-    //glBufferData(GL_ARRAY_BUFFER, sizeof(g_data_line_loop), g_data_line_loop, GL_DYNAMIC_DRAW);
-
     glBindBuffer(GL_ARRAY_BUFFER, curve);
     glBufferData(GL_ARRAY_BUFFER,  curves[pid].finalpts.size() * 3 * sizeof(float) , &curves[pid].finalpts[0] , GL_DYNAMIC_DRAW);
 
@@ -617,8 +605,6 @@ main(const int argc, const char** argv)
     ImGui_ImplGlfw_NewFrame();
     ImGui::NewFrame();
 
-    // - Uncomment below to show ImGui demo window
-
     // Render GUI
     ImGui::Begin("Options");
     ImGui::Text("Choose Curve to Manipulate");
@@ -628,8 +614,7 @@ main(const int argc, const char** argv)
 
     ImGui::SliderInt("Algorithim",&curves[pid].curvetype,0,1);
 
-   // ImGui::Text("Change k");
-    //ImGui::SliderInt("K",&curves[pid].k,2,curves[pid].ctrlpts.size() - 1);
+  
     ImGui::Text("Choose Control point to change");
     static int ctrlindex = 0;
     ImGui::SliderInt("Point",&ctrlindex,0,curves[pid].ctrlpts.size()-1);
@@ -645,7 +630,6 @@ main(const int argc, const char** argv)
     ImGui::Checkbox("delete point",&delte);
     ImGui::SliderInt("Control Point",&delteindx,0,curves[pid].ctrlpts.size()-1);
     if (delte){
-      //std::cout<<delteindx<<std::endl;
       curves[pid].ctrlpts.erase(curves[pid].ctrlpts.begin() + delteindx);
       delte = false;
     }
